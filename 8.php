@@ -25,7 +25,7 @@ class Solution {
             $digit = (int)$s[$i];
             
             if ($result > $INT_MAX / 10 || 
-                ($result == $INT_MAX / 10 && $digit > 7)) {
+                ($result == $INT_MAX / 10 && $digit > ($sign == 1 ? 7 : 8))) {
                 return ($sign == 1) ? $INT_MAX : $INT_MIN;
             }
             
@@ -33,7 +33,12 @@ class Solution {
             $i++;
         }
         
-        return $sign * $result;
+        $result *= $sign;
+        
+        if ($result > $INT_MAX) return $INT_MAX;
+        if ($result < $INT_MIN) return $INT_MIN;
+        
+        return $result;
     }
 }
 
